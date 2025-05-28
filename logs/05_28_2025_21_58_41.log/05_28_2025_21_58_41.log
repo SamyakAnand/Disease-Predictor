@@ -1,0 +1,35 @@
+[2025-05-28 21:58:41,439] 148 numexpr.utils -INFO -Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2025-05-28 21:58:41,439] 160 numexpr.utils -INFO -NumExpr defaulting to 8 threads.
+[2025-05-28 21:58:49,142] 1026 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-05-28 21:58:49,148] 107 dagshub -INFO -Accessing as SamyakAnand
+[2025-05-28 21:58:50,111] 1026 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/repos/SamyakAnand/Health-App "HTTP/1.1 200 OK"
+[2025-05-28 21:58:51,072] 1026 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-05-28 21:58:51,074] 107 dagshub -INFO -Initialized MLflow to track repo "SamyakAnand/Health-App"
+[2025-05-28 21:58:51,077] 107 dagshub -INFO -Repository SamyakAnand/Health-App initialized!
+[2025-05-28 21:58:51,077] 14 root -INFO -Initiate the data ingestion
+[2025-05-28 21:58:59,792] 66 root -INFO -Performed train test split on the dataframe
+[2025-05-28 21:58:59,792] 68 root -INFO -Exited split_data_as_train_test method of Data_Ingestion class
+[2025-05-28 21:58:59,792] 76 root -INFO -Exporting train and test file path.
+[2025-05-28 21:58:59,796] 85 root -INFO -Exported train and test file path.
+[2025-05-28 21:58:59,796] 16 root -INFO -Data Initiation Completed
+[2025-05-28 21:58:59,799] 20 root -INFO -Initiate the data validation
+[2025-05-28 21:58:59,822] 41 root -INFO -Required number of columns:3
+[2025-05-28 21:58:59,822] 42 root -INFO -Data frame has columns:9 
+[2025-05-28 21:58:59,822] 41 root -INFO -Required number of columns:3
+[2025-05-28 21:58:59,822] 42 root -INFO -Data frame has columns:9 
+[2025-05-28 21:58:59,844] 22 root -INFO -Completed the data validation
+[2025-05-28 21:58:59,845] 26 root -INFO -data transformation started
+[2025-05-28 21:58:59,845] 52 root -INFO -Starting numerical data transformation process...
+[2025-05-28 21:58:59,847] 57 root -INFO -Train Data Shape: (614, 9), Test Data Shape: (154, 9)
+[2025-05-28 21:58:59,847] 36 root -INFO -Initializing preprocessing pipeline for numerical data transformation.
+[2025-05-28 21:58:59,855] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-28 21:58:59,857] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-28 21:58:59,857] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-28 21:58:59,857] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-28 21:58:59,857] 30 root -INFO -data transformation completed
+[2025-05-28 21:58:59,857] 32 root -INFO -Model Trainng started
+[2025-05-28 22:00:37,958] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-28 22:00:37,961] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-28 22:00:37,961] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-28 22:00:37,964] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-28 22:00:37,964] 135 root -INFO -Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='healthapp\\Artifacts\\05_28_2025_21_58_41\\model_trainer\\trained_model\\diabetes_model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.6208791208791209, precision_score=0.7635135135135135, recall_score=0.5231481481481481), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.6391752577319587, precision_score=0.6888888888888889, recall_score=0.5961538461538461))

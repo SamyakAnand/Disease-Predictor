@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Women's Diabetes Screening</title>
+
+    <!-- Bootstrap & Google Fonts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFF8E1;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 25px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #D81B60;
+            font-weight: 600;
+        }
+        label {
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #D81B60;
+            border: none;
+            padding: 12px;
+        }
+        .btn-primary:hover {
+            background-color: #880E4F;
+        }
+        .result-message {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #FFEBEE;
+            color: #D81B60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Women's Diabetes Screening</h1>
+        <p class="text-center text-muted">Take charge of your health. Early detection can make all the difference. 💖</p>
+        <form action="{{ url_for('predict') }}" method="POST">
+            <div class="form-group">
+                <label for="Pregnancies">Pregnancies</label>
+                <input type="number" class="form-control" id="Pregnancies" name="Pregnancies" required placeholder="e.g., 0-15 (Typical range)">
+            </div>
+            <div class="form-group">
+                <label for="Glucose">Glucose Level</label>
+                <input type="number" class="form-control" id="Glucose" name="Glucose" required placeholder="e.g., 70-200 mg/dL (Healthy range ~100)">
+            </div>
+            <div class="form-group">
+                <label for="BloodPressure">Blood Pressure</label>
+                <input type="number" class="form-control" id="BloodPressure" name="BloodPressure" required placeholder="e.g., 60-140 mmHg (Ideal ~120/80)">
+            </div>
+            <div class="form-group">
+                <label for="SkinThickness">Skin Thickness</label>
+                <input type="number" class="form-control" id="SkinThickness" name="SkinThickness" required placeholder="e.g., 10-50 mm">
+            </div>
+            <div class="form-group">
+                <label for="Insulin">Insulin Level</label>
+                <input type="number" class="form-control" id="Insulin" name="Insulin" required placeholder="e.g., 0-300 IU/mL (Typical fasting ~100)">
+            </div>
+            <div class="form-group">
+                <label for="BMI">Body Mass Index (BMI)</label>
+                <input type="number" class="form-control" id="BMI" name="BMI" required placeholder="e.g., 18.5-40 (Healthy ~24.9)">
+            </div>
+            <div class="form-group">
+                <label for="DiabetesPedigreeFunction">Diabetes Risk Factor</label>
+                <input type="number" class="form-control" id="DiabetesPedigreeFunction" name="DiabetesPedigreeFunction" required placeholder="e.g., 0.1-2.5 (Higher means greater genetic risk)">
+            </div>
+            <div class="form-group">
+                <label for="Age">Age</label>
+                <input type="number" class="form-control" id="Age" name="Age" required placeholder="e.g., 20-90">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Check Your Risk</button>
+        </form>
+
+        {% if prediction_text %}
+            <div class="result-message">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

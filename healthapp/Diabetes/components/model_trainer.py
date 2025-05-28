@@ -19,9 +19,9 @@ from healthapp.utils.main_utils.utils import (
     evaluate_models)
 from healthapp.utils.ml_utils.metric.classification_metric import get_classification_score,precision_score,recall_score
 
-from healthapp.utils.ml_utils.model.estimator import NetworkModel
+from healthapp.utils.ml_utils.model.estimator import HealthModel
 
-
+from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import r2_score
 from sklearn.neighbors import KNeighborsClassifier
@@ -62,7 +62,8 @@ class ModelTrainer:
             "Decision Tree":DecisionTreeClassifier(),
             "Gradient Boosting":GradientBoostingClassifier(verbose=1),
             "Logistic Regression":LogisticRegression(verbose=1),
-            'AdaBoost':AdaBoostClassifier()
+            'AdaBoost':AdaBoostClassifier(),
+            'SVC':SVC()
         }
         params={
             "Decision Tree": {
@@ -88,7 +89,14 @@ class ModelTrainer:
             "AdaBoost":{
                 'learning_rate':[.1,.01,.001],
                 'n_estimators': [8,16,32,64,128,256]
-            }
+            },
+            "SVC": {
+    "C": [0.1, 1, 10, 100],  # Regularization parameter
+    "kernel": ["linear", "poly", "rbf", "sigmoid"],  # Kernel types
+    "gamma": ["scale", "auto"],  # Kernel coefficient
+    "degree": [2, 3, 4],  # Degree for polynomial kernel
+}
+
             
         }
         model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models,param=params)
@@ -114,10 +122,10 @@ class ModelTrainer:
         model_dir_path=os.path.dirname(self.model_trainer_config.trained_model_file_path)
         os.makedirs(model_dir_path,exist_ok=True)
         
-        Network_Model=NetworkModel(preprocessor=preprocessor,model=best_model)
-        save_object(self.model_trainer_config.trained_model_file_path,obj=NetworkModel)
+        Health_Model=HealthModel(preprocessor=preprocessor,model=best_model)
+        save_object(self.model_trainer_config.trained_model_file_path,obj=Health_Model)
         
-        save_object("final_models/model.pkl",best_model)
+        save_object("healthapp/Diabetes/final_models/model.pkl",best_model)
         
         
         #model trainner artifact

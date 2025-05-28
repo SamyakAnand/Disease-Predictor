@@ -9,7 +9,7 @@ mlflow
 pyaml
 dagshub
 Flask
-
+flask-cors
 uvicorn
 python-multipart
 #-e .

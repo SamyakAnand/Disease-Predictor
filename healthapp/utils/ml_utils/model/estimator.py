@@ -4,7 +4,7 @@ from healthapp.logging.logger import logging
 import numpy as np
 from healthapp.Diabetes.constant.training_pipeline import SAVED_MODEL_DIR,MODEL_FILE_NAME
 
-class NetworkModel:
+class HealthModel:
     def __init__(self,preprocessor,model):
         try:
             self.preprocessor=preprocessor

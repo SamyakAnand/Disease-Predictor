@@ -1,0 +1,4 @@
+
+Input: {"Pregnancies": "10", "Glucose": "70", "BloodPressure": "60", "SkinThickness": "50", "Insulin": "200", "BMI": "30", "DiabetesPedigreeFunction": "1", "Age": "30"}, Prediction: 🟢 **Low Risk**: Keep maintaining a healthy lifestyle! 😊
+Input: {"Pregnancies": "3", "Glucose": "100", "BloodPressure": "56", "SkinThickness": "40", "Insulin": "300", "BMI": "40", "DiabetesPedigreeFunction": "2", "Age": "67"}, Prediction: 🟢 **Low Risk**: Keep maintaining a healthy lifestyle!
+Input: {"Pregnancies": "6", "Glucose": "10", "BloodPressure": "56", "SkinThickness": "40", "Insulin": "30", "BMI": "40", "DiabetesPedigreeFunction": "2", "Age": "40"}, Prediction: 🟢 **Low Risk**: Keep maintaining a healthy lifestyle!

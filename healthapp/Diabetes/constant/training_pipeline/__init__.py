@@ -41,7 +41,7 @@ DATA_VALIDATION_VALID_DIR: str = "validation"
 DATA_VALIDATION_INVALID_DIR: str = "invalid"
 DATA_VALIDATION_DRIFT_REPORT_DIR: str = "drift_report"
 DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
-PREPROCESSING_OBJECT_FILE_NAME = "preprocessing.pkl"
+PREPROCESSING_OBJECT_FILE_NAME = "diabetes_preprocessing.pkl"
 
 """ Data Transformation related constants """
 DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
@@ -60,4 +60,4 @@ MODEL_TRAINER_DIR_NAME: str = "model_trainer"
 MODEL_TRAINER_TRAINED_MODEL_DIR: str = 'trained_model'
 MODEL_TRAINER_TRAINED_MODEL_NAME: str = 'diabetes_model.pkl'
 MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
-MODEL_TRAINER_OVER_FITTING_UNDER_FITTING_THRESHOLD: float = 0.05
+MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD: float = 0.05

@@ -22,6 +22,17 @@ if __name__=='__main__':
         logging.info("Completed the data validation")
         print(data_validation_artifact)
         
+        data_transformation_config=DataTransformationConfig(trainingpipelineconfig)
+        logging.info("data transformation started")
+        data_transfromation=DataTransformation(data_validation_artifact,data_transformation_config)
+
+        data_transfromation_artifact=data_transfromation.initiate_data_transformation()
+        logging.info("data transformation completed")
         
+        logging.info("Model Trainng started")
+        model_trainer_config=ModelTrainerConfig(trainingpipelineconfig)
+        model_trainer=ModelTrainer(model_trainer_config=model_trainer_config,data_transformation_artifact=data_transfromation_artifact)
+        model_trainer_artifact=model_trainer.initiate_model_trainer()    
+    
     except Exception as e:
         raise HealthAppException(e,sys)
