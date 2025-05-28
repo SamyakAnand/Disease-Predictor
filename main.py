@@ -15,7 +15,13 @@ if __name__=='__main__':
         dataingestionartifact=data_ingestion.initiate_data_ingestion()
         logging.info("Data Initiation Completed")
         print(dataingestionartifact)
-           
-    
+        data_validation_config=DataValidationConfig(trainingpipelineconfig)
+        data_validation=DataValidation(dataingestionartifact,data_validation_config)
+        logging.info("Initiate the data validation")
+        data_validation_artifact=data_validation.initiate_data_validation()
+        logging.info("Completed the data validation")
+        print(data_validation_artifact)
+        
+        
     except Exception as e:
         raise HealthAppException(e,sys)

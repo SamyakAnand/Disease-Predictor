@@ -1,7 +1,0 @@
-[2025-05-28 15:55:06,882] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
-[2025-05-28 15:55:06,886] 107 dagshub -INFO -Accessing as SamyakAnand
-[2025-05-28 15:55:07,853] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/repos/SamyakAnand/NetworkSecurity "HTTP/1.1 200 OK"
-[2025-05-28 15:55:10,066] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
-[2025-05-28 15:55:10,069] 107 dagshub -INFO -Initialized MLflow to track repo "SamyakAnand/NetworkSecurity"
-[2025-05-28 15:55:10,070] 107 dagshub -INFO -Repository SamyakAnand/NetworkSecurity initialized!
-[2025-05-28 15:55:10,070] 14 root -INFO -Initiate the data ingestion
