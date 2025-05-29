@@ -1,0 +1,14 @@
+python-dotenv
+pandas
+numpy
+matplotlib
+scikit-learn
+pymongo
+certifi
+mlflow
+pyaml
+dagshub
+Flask
+flask-cors
+uvicorn
+python-multipart

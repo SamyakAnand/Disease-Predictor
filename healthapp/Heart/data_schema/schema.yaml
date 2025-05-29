@@ -1,0 +1,76 @@
+# ================== schema.yaml ==================
+# Description:
+#   Column names, data types, and basic validation rules
+#   for the classic UCI Heart-Disease feature set.
+#   Update ranges if your specific dataset differs.
+target_column: target
+
+columns:
+  age:        int
+  sex:        int
+  cp:         int
+  trestbps:   float
+  chol:       float
+  fbs:        int
+  restecg:    int
+  thalach:    float
+  exang:      int
+  oldpeak:    float
+  slope:      int
+  ca:         int
+  thal:       int
+  target:     int          # 0 = no disease, 1 = disease
+
+types:
+  age:        "integer"
+  sex:        "integer"
+  cp:         "integer"
+  trestbps:   "float"
+  chol:       "float"
+  fbs:        "integer"
+  restecg:    "integer"
+  thalach:    "float"
+  exang:      "integer"
+  oldpeak:    "float"
+  slope:      "integer"
+  ca:         "integer"
+  thal:       "integer"
+  target:     "integer"
+
+constraints:
+  age:
+    min: 20
+    max: 100
+  sex:
+    values: [0, 1]                 # 0 = female, 1 = male
+  cp:
+    values: [0, 1, 2, 3]           # chest-pain type
+  trestbps:
+    min: 80
+    max: 220                       # resting blood-pressure (mm Hg)
+  chol:
+    min: 100
+    max: 600                       # serum cholesterol (mg/dL)
+  fbs:
+    values: [0, 1]                 # fasting blood sugar > 120 mg/dL
+  restecg:
+    values: [0, 1, 2]              # resting ECG results
+  thalach:
+    min: 60
+    max: 250                       # max heart rate achieved
+  exang:
+    values: [0, 1]                 # exercise-induced angina
+  oldpeak:
+    min: 0.0
+    max: 8.0                       # ST depression induced by exercise
+  slope:
+    values: [0, 1, 2]              # slope of ST segment
+  ca:
+    values: [0, 1, 2, 3, 4]        # # of major vessels colored by fluoroscopy
+  thal:
+    values: [0, 1, 2, 3]           # thalassemia encoding
+  target:
+    values: [0, 1]                 # 0 = healthy, 1 = heart disease
+
+missing_values: ["", "NA", "NaN", "null", "?"]
+# =================================================

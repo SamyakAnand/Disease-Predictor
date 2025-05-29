@@ -4,8 +4,8 @@ from healthapp.logging.logger import logging
 
 ## configuration of the Data Ingestion Config
 
-from healthapp.Diabetes.entity.config_entity import DataIngestionConfig,DataValidationConfig
-from healthapp.Diabetes.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact
+from healthapp.Heart.entity.config_entity import DataIngestionConfig,DataValidationConfig
+from healthapp.Heart.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact
 import os
 import sys
 import numpy as np
@@ -16,8 +16,8 @@ from sklearn.model_selection import train_test_split
 
 from scipy.stats import ks_2samp
 
-from healthapp.Diabetes.constant.training_pipeline import SCHEMA_FILE_PATH
-from healthapp.Diabetes.utils.main_utils.utils import read_yaml_file,write_yaml_file
+from healthapp.Heart.constant.training_pipeline import SCHEMA_FILE_PATH
+from healthapp.Heart.utils.main_utils.utils import read_yaml_file,write_yaml_file
 class DataValidation:
     def __init__(self,data_ingestion_artifact:DataIngestionArtifact,data_validation_config:DataValidationConfig):
         try:

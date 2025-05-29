@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: Health-App
+Version: 0.0.1
+Author: Samyak Anand
+Author-email: samyak.g.anand@gmail.com
+Requires-Dist: python-dotenv
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: scikit-learn
+Requires-Dist: pymongo
+Requires-Dist: certifi
+Requires-Dist: mlflow
+Requires-Dist: pyaml
+Requires-Dist: dagshub
+Requires-Dist: Flask
+Requires-Dist: flask-cors
+Requires-Dist: uvicorn
+Requires-Dist: python-multipart
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist

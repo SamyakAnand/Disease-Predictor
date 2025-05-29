@@ -3,7 +3,7 @@ import mlflow.sklearn
 import numpy as np
 import pandas as pd
 import mlflow
-from healthapp.Diabetes.entity.artifact_entity import (
+from healthapp.Heart.entity.artifact_entity import (
     DataTransformationArtifact, 
     DataValidationArtifact,
     ModelTrainerArtifact
@@ -11,15 +11,15 @@ from healthapp.Diabetes.entity.artifact_entity import (
 )
 from healthapp.exception.exception import HealthAppException
 from healthapp.logging.logger import logging
-from healthapp.Diabetes.entity.config_entity import DataTransformationConfig,ModelTrainerConfig
-from healthapp.Diabetes.utils.main_utils.utils import (
+from healthapp.Heart.entity.config_entity import DataTransformationConfig,ModelTrainerConfig
+from healthapp.Heart.utils.main_utils.utils import (
     save_object,
     load_object,
     load_numpy_array_data,
     evaluate_models)
-from healthapp.Diabetes.utils.ml_utils.metric.classification_metric import get_classification_score,precision_score,recall_score
+from healthapp.Heart.utils.ml_utils.metric.classification_metric import get_classification_score,precision_score,recall_score
 
-from healthapp.Diabetes.utils.ml_utils.model.estimator import HealthModel
+from healthapp.Heart.utils.ml_utils.model.estimator import HealthModel
 
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
@@ -125,7 +125,7 @@ class ModelTrainer:
         Health_Model=HealthModel(preprocessor=preprocessor,model=best_model)
         save_object(self.model_trainer_config.trained_model_file_path,obj=Health_Model)
         
-        save_object("healthapp/Diabetes/final_models/diabetes_model.pkl",best_model)
+        save_object("healthapp/Heart/final_models/heart_model.pkl",best_model)
         print(best_model_name)
         logging.info(f"Best Model: {best_model_name}")
         

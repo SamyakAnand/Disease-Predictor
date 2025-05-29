@@ -1,0 +1,34 @@
+[2025-05-29 15:54:51,347] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-05-29 15:54:51,353] 107 dagshub -INFO -Accessing as SamyakAnand
+[2025-05-29 15:54:51,901] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/repos/SamyakAnand/Health-App "HTTP/1.1 200 OK"
+[2025-05-29 15:54:52,382] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-05-29 15:54:52,384] 107 dagshub -INFO -Initialized MLflow to track repo "SamyakAnand/Health-App"
+[2025-05-29 15:54:52,385] 107 dagshub -INFO -Repository SamyakAnand/Health-App initialized!
+[2025-05-29 15:54:52,385] 14 root -INFO -Initiate the data ingestion
+[2025-05-29 15:55:00,964] 66 root -INFO -Performed train test split on the dataframe
+[2025-05-29 15:55:00,964] 68 root -INFO -Exited split_data_as_train_test method of Data_Ingestion class
+[2025-05-29 15:55:00,964] 76 root -INFO -Exporting train and test file path.
+[2025-05-29 15:55:00,968] 85 root -INFO -Exported train and test file path.
+[2025-05-29 15:55:00,968] 16 root -INFO -Data Initiation Completed
+[2025-05-29 15:55:00,971] 20 root -INFO -Initiate the data validation
+[2025-05-29 15:55:00,998] 41 root -INFO -Required number of columns:3
+[2025-05-29 15:55:00,999] 42 root -INFO -Data frame has columns:9 
+[2025-05-29 15:55:00,999] 41 root -INFO -Required number of columns:3
+[2025-05-29 15:55:00,999] 42 root -INFO -Data frame has columns:9 
+[2025-05-29 15:55:01,020] 22 root -INFO -Completed the data validation
+[2025-05-29 15:55:01,020] 26 root -INFO -data transformation started
+[2025-05-29 15:55:01,020] 52 root -INFO -Starting numerical data transformation process...
+[2025-05-29 15:55:01,023] 57 root -INFO -Train Data Shape: (614, 9), Test Data Shape: (154, 9)
+[2025-05-29 15:55:01,023] 36 root -INFO -Initializing preprocessing pipeline for numerical data transformation.
+[2025-05-29 15:55:01,060] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-29 15:55:01,062] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-29 15:55:01,062] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-29 15:55:01,062] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-29 15:55:01,063] 30 root -INFO -data transformation completed
+[2025-05-29 15:55:01,063] 32 root -INFO -Model Trainng started
+[2025-05-29 15:56:33,070] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-29 15:56:33,078] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-29 15:56:33,078] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-29 15:56:33,087] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-29 15:56:33,087] 130 root -INFO -Best Model: Random Forest
+[2025-05-29 15:56:33,087] 137 root -INFO -Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='healthapp/Diabetes\\Artifacts\\05_29_2025_15_54_45\\model_trainer\\trained_model\\diabetes_model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=1.0, precision_score=1.0, recall_score=1.0), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.6542056074766355, precision_score=0.7142857142857143, recall_score=0.603448275862069))

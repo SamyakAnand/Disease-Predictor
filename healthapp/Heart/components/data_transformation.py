@@ -5,12 +5,12 @@ from sklearn.impute import KNNImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-from healthapp.Diabetes.constant.training_pipeline import TARGET_COLUMN, DATA_TRANSFORMATION_IMPUTER_PARAMS
-from healthapp.Diabetes.entity.artifact_entity import DataTransformationArtifact, DataValidationArtifact
+from healthapp.Heart.constant.training_pipeline import TARGET_COLUMN, DATA_TRANSFORMATION_IMPUTER_PARAMS
+from healthapp.Heart.entity.artifact_entity import DataTransformationArtifact, DataValidationArtifact
 from healthapp.exception.exception import HealthAppException
 from healthapp.logging.logger import logging
-from healthapp.Diabetes.entity.config_entity import DataTransformationConfig
-from healthapp.Diabetes.utils.main_utils.utils import save_numpy_array_data, save_object
+from healthapp.Heart.entity.config_entity import DataTransformationConfig
+from healthapp.Heart.utils.main_utils.utils import save_numpy_array_data, save_object
 
 class DataTransformation:
     def __init__(self, data_validation_artifact: DataValidationArtifact,
@@ -58,7 +58,7 @@ class DataTransformation:
 
             if train_df.empty or test_df.empty:
                 raise ValueError("❌ Train or Test dataset is empty. Check data ingestion.")
-
+            print(TARGET_COLUMN)
             input_feature_train_df = train_df.drop(columns=[TARGET_COLUMN], axis=1)
             target_feature_train_df = train_df[TARGET_COLUMN]
 
@@ -79,7 +79,7 @@ class DataTransformation:
             save_numpy_array_data(self.data_transformation_config.transformed_test_file_path, array=test_arr)
             save_object(self.data_transformation_config.transformed_object_file_path, preprocessor_obj)
 
-            save_object("healthapp/Diabetes/final_models/diabetes_preprocessor.pkl", preprocessor_obj)
+            save_object("healthapp/Heart/final_models/heart_preprocessor.pkl", preprocessor_obj)
 
             data_transformation_artifact = DataTransformationArtifact(
                 transformed_object_file_path=self.data_transformation_config.transformed_object_file_path,
