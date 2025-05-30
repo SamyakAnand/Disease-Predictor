@@ -27,7 +27,7 @@ from sklearn.ensemble import (
     GradientBoostingClassifier,
     RandomForestClassifier
 )
-
+from healthapp.Liver.utils.ml_utils.model.estimator import HealthModel
 import dagshub
 dagshub.init(repo_owner='SamyakAnand', repo_name='Health-App', mlflow=True)
 
@@ -84,13 +84,26 @@ class ModelTrainer:
         self.track_mlflow(best_model, classification_test_metric)
 
         preprocessor = load_object(self.data_transformation_artifact.transformed_object_file_path)
-        save_object(self.model_trainer_config.trained_model_file_path, best_model)
+        
+        # Save model directory structure
+        model_dir_path = os.path.dirname(self.model_trainer_config.trained_model_file_path)
+        os.makedirs(model_dir_path, exist_ok=True)
+        
+        Health_Model = HealthModel(preprocessor=preprocessor, model=best_model)
+        save_object(self.model_trainer_config.trained_model_file_path, obj=Health_Model)
 
-        return ModelTrainerArtifact(
+        # 🔹 Save the trained model in the **Liver final model directory**
+        save_object("healthapp/Liver/final_models/liver_model.pkl", best_model)
+        print(f"✅ Saved Liver Model: {best_model_name}")
+
+        # Creating model trainer artifact
+        model_trainer_artifact = ModelTrainerArtifact(
             trained_model_file_path=self.model_trainer_config.trained_model_file_path,
             train_metric_artifact=classification_train_metric,
             test_metric_artifact=classification_test_metric
         )
+        logging.info(f"Model trainer artifact created: {model_trainer_artifact}")
+        return model_trainer_artifact
 
     def initiate_model_trainer(self) -> ModelTrainerArtifact:
         """Loads data, splits it, and trains models."""

@@ -1,0 +1,33 @@
+Age:
+  drift_status: false
+  p_value: 0.36051835115825837
+Alamine_Aminotransferase:
+  drift_status: false
+  p_value: 0.5410216090649927
+Albumin:
+  drift_status: false
+  p_value: 0.7147880336483398
+Albumin_and_Globulin_Ratio:
+  drift_status: true
+  p_value: .nan
+Alkaline_Phosphotase:
+  drift_status: false
+  p_value: 0.6734065926053033
+Aspartate_Aminotransferase:
+  drift_status: false
+  p_value: 0.2750811450891938
+Dataset:
+  drift_status: false
+  p_value: 0.7221751292026752
+Direct_Bilirubin:
+  drift_status: false
+  p_value: 0.48108523093859623
+Gender:
+  drift_status: false
+  p_value: 0.9728576848590521
+Total_Bilirubin:
+  drift_status: false
+  p_value: 0.84848301035767
+Total_Protiens:
+  drift_status: false
+  p_value: 0.5191097048618257

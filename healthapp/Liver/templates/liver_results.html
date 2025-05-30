@@ -1,11 +1,11 @@
-{# templates/heart_results.html #}
-{% set hi = current_result and 'High' in current_result.Prediction %}
+{# templates/liver_results.html #}
+{% set hi = current_result and current_result.Prediction.startswith("🔴") %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Heart-Disease Screening Results</title>
+  <title>Liver-Disease Screening Results</title>
 
   <!-- Bootstrap 5 + Icons + Google Font -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,34 +14,86 @@
   <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 
   <style>
-    :root{ --pink:#D81B60; --pink-dark:#8b0e46; --green:#4caf50; --red:#f44336 }
-    body{font-family:'Poppins',sans-serif;background:#FFF8E1;overflow-x:hidden;}
-
-    /* hero */
-    .hero{
-      background:linear-gradient(135deg,var(--pink)0%,var(--pink-dark)100%);
-      color:#fff;padding:70px 0 90px;border-bottom-left-radius:60px;
-      border-bottom-right-radius:60px;box-shadow:0 8px 30px rgba(0,0,0,.25);}
-    .hero h1{font-size:2.4rem;font-weight:600}
-
-    /* glass card */
-    .glass-card{
-      backdrop-filter:blur(14px) saturate(180%);background:rgba(255,255,255,.56);
-      border:1px solid rgba(255,255,255,.18);border-radius:20px;
-      box-shadow:0 8px 24px rgba(0,0,0,.12)}
-    .metric strong{min-width:150px;display:inline-block;color:#555}
-
-    /* badge */
-    .risk-badge{border-radius:40px;padding:.45rem 1.2rem;
-                color:#fff;display:inline-flex;align-items:center;gap:.4rem}
-    .risk-badge.red  {background:var(--red)}
-    .risk-badge.green{background:var(--green)}
-
-    .btn-main{background:var(--pink);border:none;color:#fff}
-    .btn-main:hover{background:var(--pink-dark);color:#fff}
-
-    .fade-up{opacity:0;transform:translateY(40px);animation:fadeUp .8s .3s forwards}
-    @keyframes fadeUp{to{opacity:1;transform:none}}
+    :root {
+      --blue: #1E88E5;      /* Strong blue theme primary color */
+      --blue-dark: #1565C0; /* Dark blue for hover and accents */
+      --green: #26A69A;     /* Accent green for health-related elements */
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #E3F2FD;
+      overflow-x: hidden;
+    }
+    /* HERO - using the same blue gradient as liver.html */
+    .hero {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      color: #fff;
+      padding: 70px 0 90px;
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+    }
+    /* GLASS CARD */
+    .glass-card {
+      backdrop-filter: blur(14px) saturate(180%);
+      background: rgba(255,255,255,0.56);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      margin-bottom: 2rem;
+    }
+    .metric strong {
+      min-width: 150px;
+      display: inline-block;
+      color: #555;
+    }
+    /* RISK BADGE */
+    .risk-badge {
+      border-radius: 40px;
+      padding: 0.45rem 1.2rem;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 1.1rem;
+    }
+    .risk-badge.red {
+      background: var(--blue-dark);
+    }
+    .risk-badge.green {
+      background: var(--green);
+    }
+    /* MAIN BUTTON (Back to Predictor) using blue theme */
+    .btn-main {
+      background: var(--blue);
+      border: none;
+      color: #fff;
+    }
+    .btn-main:hover {
+      background: var(--blue-dark);
+      color: #fff;
+    }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+    /* FOOTER */
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #555;
+      padding: 1rem 0;
+      border-top: 1px solid #ddd;
+    }
   </style>
 </head>
 <body>
@@ -49,18 +101,17 @@
 <!-- HERO -->
 <section class="hero text-center">
   <div class="container">
-    <h1><i class="fa-solid fa-heartbeat me-2"></i>Screening Results</h1>
-    <p class="lead mb-0">Stay informed, stay healthy ❤️</p>
+    <h1><i class="fa-solid fa-liver me-2"></i>Liver Disease Screening Results</h1>
+    <p class="lead mb-0">Stay informed, stay healthy 🌿</p>
   </div>
 </section>
 
 <main class="container position-relative" style="margin-top:-70px;">
-
   {% if current_result %}
   <!-- OVERALL RESULT BADGE -->
   <div class="text-center mb-3 fade-up">
-    <span class="risk-badge {{ 'red' if hi else 'green' }}">
-      <i class="fa-solid fa-circle-{{ 'exclamation' if hi else 'check' }}"></i>
+    <span class="risk-badge {% if hi %}red{% else %}green{% endif %}">
+      <i class="fa-solid fa-circle-{% if hi %}exclamation{% else %}check{% endif %}"></i>
       {{ current_result.Prediction }}
     </span>
   </div>
@@ -70,50 +121,56 @@
     <h3 class="fw-semibold text-center mb-4">Detailed Breakdown</h3>
     <div class="row g-0 mb-3">
       <div class="col-md-6">
-        <p class="metric"><strong>Age:</strong>{{ current_result.age }}</p>
-        <p class="metric"><strong>Sex:</strong>{{ current_result.sex }}</p>
-        <p class="metric"><strong>Chest pain (cp):</strong>{{ current_result.cp }}</p>
-        <p class="metric"><strong>Resting BP:</strong>{{ current_result.trestbps }}</p>
-        <p class="metric"><strong>Cholesterol:</strong>{{ current_result.chol }}</p>
-        <p class="metric"><strong>Fasting BS:</strong>{{ current_result.fbs }}</p>
+        <p class="metric"><strong>Total Bilirubin:</strong> {{ current_result.Total_Bilirubin }}</p>
+        <p class="metric"><strong>Direct Bilirubin:</strong> {{ current_result.Direct_Bilirubin }}</p>
+        <p class="metric"><strong>Alkaline Phosphatase:</strong> {{ current_result.Alkaline_Phosphotase }}</p>
+        <p class="metric"><strong>ALT:</strong> {{ current_result.Alamine_Aminotransferase }}</p>
       </div>
       <div class="col-md-6">
-        <p class="metric"><strong>Rest ECG:</strong>{{ current_result.restecg }}</p>
-        <p class="metric"><strong>Max HR:</strong>{{ current_result.thalach }}</p>
-        <p class="metric"><strong>Ex-angina:</strong>{{ current_result.exang }}</p>
-        <p class="metric"><strong>Oldpeak:</strong>{{ current_result.oldpeak }}</p>
-        <p class="metric"><strong>Slope:</strong>{{ current_result.slope }}</p>
-        <p class="metric"><strong>CA / Thal:</strong>{{ current_result.ca }} / {{ current_result.thal }}</p>
+        <p class="metric"><strong>Total Proteins:</strong> {{ current_result.Total_Protiens }}</p>
+        <p class="metric"><strong>Albumin:</strong> {{ current_result.Albumin }}</p>
+        <p class="metric"><strong>A/G Ratio:</strong> {{ current_result.Albumin_and_Globulin_Ratio }}</p>
       </div>
     </div>
-    <p class="text-center text-secondary" style="font-size:.85rem;">
+    <p class="text-center text-secondary" style="font-size:0.85rem;">
       <i class="fa-regular fa-clock me-1"></i>
       {{ current_result.ts|replace('T',' ')|replace('Z','') }}
     </p>
   </div>
   {% endif %}
 
-  {# HISTORY TABLE (if view_mode == 'all') #}
   {% if results %}
+  <!-- HISTORY TABLE -->
   <div class="card mt-4 fade-up">
     <div class="card-body p-0">
       <div class="table-responsive">
         <table id="history" class="table table-striped mb-0 w-100">
           <thead>
             <tr>
-              <th>Date</th><th>Age</th><th>Sex</th><th>cp</th><th>BP</th>
-              <th>Chol</th><th>MaxHR</th><th>ExAng</th><th>Oldpeak</th><th>Pred</th>
+              <th>Date</th>
+              <th>Total Bilirubin</th>
+              <th>Direct Bilirubin</th>
+              <th>Alkaline Phosphatase</th>
+              <th>ALT</th>
+              <th>Total Proteins</th>
+              <th>Albumin</th>
+              <th>A/G Ratio</th>
+              <th>Prediction</th>
             </tr>
           </thead>
           <tbody>
             {% for r in results|reverse %}
             <tr>
               <td>{{ r.ts|replace('T',' ')|replace('Z','') }}</td>
-              <td>{{ r.age }}</td><td>{{ r.sex }}</td><td>{{ r.cp }}</td>
-              <td>{{ r.trestbps }}</td><td>{{ r.chol }}</td><td>{{ r.thalach }}</td>
-              <td>{{ r.exang }}</td><td>{{ r.oldpeak }}</td>
+              <td>{{ r.Total_Bilirubin }}</td>
+              <td>{{ r.Direct_Bilirubin }}</td>
+              <td>{{ r.Alkaline_Phosphotase }}</td>
+              <td>{{ r.Alamine_Aminotransferase }}</td>
+              <td>{{ r.Total_Protiens }}</td>
+              <td>{{ r.Albumin }}</td>
+              <td>{{ r.Albumin_and_Globulin_Ratio }}</td>
               <td>
-                <span class="badge {{ 'bg-danger' if 'High' in r.Prediction else 'bg-success' }}">
+                <span class="badge {% if r.Prediction.startswith('🔴') %}bg-danger{% else %}bg-success{% endif %}">
                   {{ r.Prediction }}
                 </span>
               </td>
@@ -134,15 +191,9 @@
   </div>
 </main>
 
-<!-- scripts -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script>
-  $(function(){
-    $('#history').DataTable({pageLength:5,order:[[0,'desc']],language:{search:"Search:"}});
-    $('.fade-up').addClass('show');
-  });
-</script>
+<!-- Footer -->
+<footer>
+  &copy; Samyak Anand
+</footer>
 </body>
 </html>
