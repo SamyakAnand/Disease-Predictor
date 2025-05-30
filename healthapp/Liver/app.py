@@ -1,25 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_cors import CORS
 import pickle, json, os, uuid, datetime as dt, numpy as np
-import pandas as pd  # Needed for DataFrame creation
+import pandas as pd
 
-# ──────────────────────── 1. Load artefacts ────────────────────────
-MODEL_PATH        = "healthapp/Heart/final_models/heart_model.pkl"
-PREPROCESSOR_PATH = "healthapp/Heart/final_models/heart_preprocessor.pkl"
+# ──────────────────────── 1. Load ML Model ────────────────────────
+MODEL_PATH = "healthapp/Liver/final_models/liver_model.pkl"
+PREPROCESSOR_PATH = "healthapp/Liver/final_models/liver_preprocessor.pkl"
 
 try:
     model = pickle.load(open(MODEL_PATH, "rb"))
     preprocessor = pickle.load(open(PREPROCESSOR_PATH, "rb"))
-    print("✅ Heart model & pre-processor loaded.")
+    print("✅ Liver model & pre-processor loaded.")
 except Exception as e:
-    print(f"❌ Couldn’t load artefacts → {e}")
+    print(f"❌ Couldn’t load artifacts → {e}")
     model = preprocessor = None
 
 # ───────────────────────── 2. Flask setup ──────────────────────────
 app = Flask(__name__)
 CORS(app)
 
-RESULTS_FILE = os.path.join("healthapp", "Heart", "results.txt")
+RESULTS_FILE = "healthapp/Liver/results.txt"
 
 def _save(rec: dict):
     os.makedirs(os.path.dirname(RESULTS_FILE), exist_ok=True)
@@ -32,38 +32,38 @@ def _load() -> list[dict]:
     with open(RESULTS_FILE, "r", encoding="utf-8") as fp:
         return [json.loads(line) for line in fp if line.strip()]
 
-# Use exactly the same features for prediction as were used in training transformation.
-PREDICTION_FEATURES = ['cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang']
+FEATURE_KEYS = [
+    "Total_Bilirubin", "Direct_Bilirubin", "Alkaline_Phosphotase",
+    "Alamine_Aminotransferase", "Total_Protiens", "Albumin",
+    "Albumin_and_Globulin_Ratio"
+]
 
 # ─────────────────────────── 3. Routes ─────────────────────────────
 @app.route("/")
 def home():
-    return render_template("heart.html")
+    return render_template("liver.html")
 
 @app.route("/predict", methods=["POST"])
-def predict():  # endpoint name "predict"
+def predict():
     try:
         f = request.form
-        # Build a DataFrame with feature names that match those used during training
-        input_df = pd.DataFrame({k: [float(f.get(k, 0))] for k in PREDICTION_FEATURES})
-        
+        input_df = pd.DataFrame({k: [float(f.get(k, 0))] for k in FEATURE_KEYS})
+
         if model is None or preprocessor is None:
             raise RuntimeError("Model not loaded")
 
-        # Preprocessor was fitted on a DataFrame having columns PREDICTION_FEATURES.
         x_t = preprocessor.transform(input_df)
-        y_hat = model.predict(x_t)[0]  # 1 indicates heart disease
+        y_hat = model.predict(x_t)[0]
 
-        msg = ("🔴 High Risk – please consult a cardiologist."
+        msg = ("🔴 High Risk – please consult a hepatologist."
                if y_hat == 1 else
-               "🟢 Low Risk – keep up the healthy lifestyle!")
+               "🟢 Low Risk – keep monitoring regularly.")
 
         rec_id = str(uuid.uuid4())
-        # Save only the prediction features (and timestamp and prediction message)
         record = {
             "id": rec_id,
             "ts": dt.datetime.utcnow().isoformat(),
-            **{k: f.get(k, "") for k in PREDICTION_FEATURES},
+            **{k: f.get(k, "") for k in FEATURE_KEYS},
             "Prediction": msg
         }
         _save(record)
@@ -71,7 +71,7 @@ def predict():  # endpoint name "predict"
         return redirect(url_for("results", id=rec_id, view="current"))
 
     except Exception as e:
-        return render_template("heart.html", prediction_text=f"❌ Error: {e}")
+        return render_template("liver.html", prediction_text=f"❌ Error: {e}")
 
 @app.route("/results")
 def results():
@@ -85,11 +85,8 @@ def results():
     if view == "current":
         history = []
 
-    return render_template("heart_results.html",
-                           current_result=current,
-                           results=history,
-                           view_mode=view)
+    return render_template("liver_results.html", current_result=current, results=history, view_mode=view)
 
 # ────────────────────────── 4. Launch ──────────────────────────────
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5001)
+    app.run(debug=True, host="0.0.0.0", port=5002)

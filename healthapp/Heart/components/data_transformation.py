@@ -1,6 +1,4 @@
-import sys, os
-import numpy as np
-import pandas as pd
+import sys, os, numpy as np, pandas as pd
 from sklearn.impute import KNNImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
@@ -12,59 +10,83 @@ from healthapp.logging.logger import logging
 from healthapp.Heart.entity.config_entity import DataTransformationConfig
 from healthapp.Heart.utils.main_utils.utils import save_numpy_array_data, save_object
 
+# Only these features will undergo transformation
+FEATURE_COLS = ['cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang']
+
 class DataTransformation:
     def __init__(self, data_validation_artifact: DataValidationArtifact,
                  data_transformation_config: DataTransformationConfig):
         try:
-            self.data_validation_artifact: DataValidationArtifact = data_validation_artifact
-            self.data_transformation_config: DataTransformationConfig = data_transformation_config
+            self.data_validation_artifact = data_validation_artifact
+            self.data_transformation_config = data_transformation_config
         except Exception as e:
             raise HealthAppException(e, sys)
 
     @staticmethod
     def read_data(file_path) -> pd.DataFrame:
-        """Loads data and verifies its existence."""
+        """
+        Loads data from the CSV file and immediately filters
+        the DataFrame to keep only the required columns:
+        FEATURE_COLS + [TARGET_COLUMN].
+        """
         try:
             if not os.path.exists(file_path):
                 raise FileNotFoundError(f"❌ Data file not found: {file_path}")
-            return pd.read_csv(file_path)
+            df = pd.read_csv(file_path)
+            required_cols = FEATURE_COLS + [TARGET_COLUMN]
+            missing_cols = set(required_cols) - set(df.columns)
+            if missing_cols:
+                raise ValueError(f"❌ Missing columns from CSV: {missing_cols}")
+            return df[required_cols]
         except Exception as e:
             raise HealthAppException(e, sys)
 
     def get_data_transformer_obj(self) -> Pipeline:
-        """Initializes KNNImputer + StandardScaler + MinMaxScaler pipeline."""
+        """
+        Initializes a preprocessing pipeline consisting of KNNImputer,
+        StandardScaler, and MinMaxScaler for our selected features.
+        """
         logging.info("Initializing preprocessing pipeline for numerical data transformation.")
         try:
             imputer = KNNImputer(**DATA_TRANSFORMATION_IMPUTER_PARAMS)
             scaler = StandardScaler()
             normalizer = MinMaxScaler()
-
             processor = Pipeline([
-                ("imputer", imputer),      # Handles missing values
-                ("scaler", scaler),        # Standardizes data
-                ("normalizer", normalizer) # Normalizes data
+                ("imputer", imputer),      # Fill missing values
+                ("scaler", scaler),        # Standardize data
+                ("normalizer", normalizer) # Normalize data
             ])
             return processor
         except Exception as e:
             raise HealthAppException(e, sys)
 
     def initiate_data_transformation(self) -> DataTransformationArtifact:
+        """
+        Loads the training and testing data, filters them to only include
+        FEATURE_COLS and TARGET_COLUMN, applies the transformation pipeline,
+        and then saves the transformed arrays and the preprocessor object.
+        """
         logging.info("Starting numerical data transformation process...")
         try:
+            # This read_data() call forces even the CSV (which may have 13 columns)
+            # to be narrowed down to only the required ones.
             train_df = self.read_data(self.data_validation_artifact.valid_train_file_path)
             test_df = self.read_data(self.data_validation_artifact.valid_test_file_path)
-
-            logging.info(f"Train Data Shape: {train_df.shape}, Test Data Shape: {test_df.shape}")
-
+            
+            logging.info(f"Train Data Shape (after filtering): {train_df.shape}, "
+                         f"Test Data Shape (after filtering): {test_df.shape}")
+            
             if train_df.empty or test_df.empty:
                 raise ValueError("❌ Train or Test dataset is empty. Check data ingestion.")
-            print(TARGET_COLUMN)
-            input_feature_train_df = train_df.drop(columns=[TARGET_COLUMN], axis=1)
+            
+            # Separate input features (7 selected features) and target
+            input_feature_train_df = train_df[FEATURE_COLS]
             target_feature_train_df = train_df[TARGET_COLUMN]
 
-            input_feature_test_df = test_df.drop(columns=[TARGET_COLUMN], axis=1)
+            input_feature_test_df = test_df[FEATURE_COLS]
             target_feature_test_df = test_df[TARGET_COLUMN]
 
+            # Fit the transformation pipeline only on the 7 feature columns
             preprocessor = self.get_data_transformer_obj()
             preprocessor_obj = preprocessor.fit(input_feature_train_df)
 
@@ -74,11 +96,10 @@ class DataTransformation:
             train_arr = np.c_[transformed_train_features, np.array(target_feature_train_df)]
             test_arr = np.c_[transformed_test_features, np.array(target_feature_test_df)]
 
-            # Save transformed data and preprocessing object
+            # Save the transformed train/test arrays and the preprocessor object
             save_numpy_array_data(self.data_transformation_config.transformed_train_file_path, array=train_arr)
             save_numpy_array_data(self.data_transformation_config.transformed_test_file_path, array=test_arr)
             save_object(self.data_transformation_config.transformed_object_file_path, preprocessor_obj)
-
             save_object("healthapp/Heart/final_models/heart_preprocessor.pkl", preprocessor_obj)
 
             data_transformation_artifact = DataTransformationArtifact(

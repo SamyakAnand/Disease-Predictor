@@ -1,6 +1,6 @@
 from datetime import datetime
 import os
-from healthapp.Heart.constant import training_pipeline
+from healthapp.Liver.constant import training_pipeline
 
 print(training_pipeline.PIPELINE_NAME)
 print(training_pipeline.ARTIFACT_DIR)

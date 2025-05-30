@@ -1,0 +1,27 @@
+Age:
+  drift_status: false
+  p_value: 0.5572766318295187
+BMI:
+  drift_status: false
+  p_value: 0.7884263457233041
+BloodPressure:
+  drift_status: false
+  p_value: 0.7598062414752006
+DiabetesPedigreeFunction:
+  drift_status: false
+  p_value: 0.20096146399240056
+Glucose:
+  drift_status: false
+  p_value: 0.44606224075804785
+Insulin:
+  drift_status: false
+  p_value: 0.9362738471692246
+Outcome:
+  drift_status: false
+  p_value: 0.9996310709907287
+Pregnancies:
+  drift_status: false
+  p_value: 0.9850219119262587
+SkinThickness:
+  drift_status: false
+  p_value: 0.8319729990366037

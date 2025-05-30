@@ -1,0 +1,125 @@
+target_column: classification
+
+columns:
+  id: integer
+  age: float
+  bp: float
+  sg: float
+  al: float
+  su: float
+  rbc: string
+  pc: string
+  pcc: string
+  ba: string
+  bgr: float
+  bu: float
+  sc: float
+  sod: float
+  pot: float
+  hemo: float
+  pcv: integer
+  wc: integer
+  rc: float
+  htn: string
+  dm: string
+  cad: string
+  appet: string
+  pe: string
+  ane: string
+  classification: string
+
+types:
+  id: "integer"
+  age: "float"
+  bp: "float"
+  sg: "float"
+  al: "float"
+  su: "float"
+  rbc: "categorical"
+  pc: "categorical"
+  pcc: "categorical"
+  ba: "categorical"
+  bgr: "float"
+  bu: "float"
+  sc: "float"
+  sod: "float"
+  pot: "float"
+  hemo: "float"
+  pcv: "integer"
+  wc: "integer"
+  rc: "float"
+  htn: "categorical"
+  dm: "categorical"
+  cad: "categorical"
+  appet: "categorical"
+  pe: "categorical"
+  ane: "categorical"
+  classification: "categorical"
+
+constraints:
+  age:
+    min: 0
+    max: 120
+  bp:
+    min: 0
+    max: 300
+  sg:
+    min: 0.0
+    max: 2.0
+  al:
+    min: 0.0
+    max: 10.0
+  su:
+    min: 0.0
+    max: 10.0
+  rbc:
+    values: ["normal", "abnormal"]
+  pc:
+    values: ["normal", "abnormal"]
+  pcc:
+    values: ["present", "notpresent"]
+  ba:
+    values: ["present", "notpresent"]
+  bgr:
+    min: 0
+    max: 600
+  bu:
+    min: 0
+    max: 300
+  sc:
+    min: 0.0
+    max: 10.0
+  sod:
+    min: 0
+    max: 200
+  pot:
+    min: 0
+    max: 10
+  hemo:
+    min: 0.0
+    max: 20.0
+  pcv:
+    min: 0
+    max: 100
+  wc:
+    min: 0
+    max: 50000
+  rc:
+    min: 0.0
+    max: 20.0
+  htn:
+    values: ["yes", "no"]
+  dm:
+    values: ["yes", "no"]
+  cad:
+    values: ["yes", "no"]
+  appet:
+    values: ["good", "poor"]
+  pe:
+    values: ["yes", "no"]
+  ane:
+    values: ["yes", "no"]
+  classification:
+    values: ["ckd", "notckd"]
+
+missing_values: ["", "NA", "NaN", "null", "?"]

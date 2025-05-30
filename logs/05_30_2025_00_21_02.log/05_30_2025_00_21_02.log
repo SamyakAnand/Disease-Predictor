@@ -1,0 +1,33 @@
+[2025-05-30 00:21:08,001] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-05-30 00:21:08,069] 107 dagshub -INFO -Accessing as SamyakAnand
+[2025-05-30 00:21:08,552] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/repos/SamyakAnand/Health-App "HTTP/1.1 200 OK"
+[2025-05-30 00:21:09,006] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-05-30 00:21:09,008] 107 dagshub -INFO -Initialized MLflow to track repo "SamyakAnand/Health-App"
+[2025-05-30 00:21:09,008] 107 dagshub -INFO -Repository SamyakAnand/Health-App initialized!
+[2025-05-30 00:21:09,009] 14 root -INFO -Initiate the data ingestion
+[2025-05-30 00:21:14,395] 37 root -INFO -Dataframe shape after MongoDB fetch: (303, 8)
+[2025-05-30 00:21:14,401] 62 root -INFO -Performed train-test split on the dataframe.
+[2025-05-30 00:21:14,404] 70 root -INFO -Exported train and test datasets successfully.
+[2025-05-30 00:21:14,404] 16 root -INFO -Data Initiation Completed
+[2025-05-30 00:21:14,408] 20 root -INFO -Initiate the data validation
+[2025-05-30 00:21:14,430] 41 root -INFO -Required number of columns:5
+[2025-05-30 00:21:14,430] 42 root -INFO -Data frame has columns:8 
+[2025-05-30 00:21:14,430] 41 root -INFO -Required number of columns:5
+[2025-05-30 00:21:14,431] 42 root -INFO -Data frame has columns:8 
+[2025-05-30 00:21:14,444] 22 root -INFO -Completed the data validation
+[2025-05-30 00:21:14,444] 26 root -INFO -data transformation started
+[2025-05-30 00:21:14,445] 69 root -INFO -Starting numerical data transformation process...
+[2025-05-30 00:21:14,447] 76 root -INFO -Train Data Shape (after filtering): (242, 8), Test Data Shape (after filtering): (61, 8)
+[2025-05-30 00:21:14,448] 49 root -INFO -Initializing preprocessing pipeline for numerical data transformation.
+[2025-05-30 00:21:14,453] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-30 00:21:14,454] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-30 00:21:14,454] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-30 00:21:14,454] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-30 00:21:14,455] 30 root -INFO -data transformation completed
+[2025-05-30 00:21:14,455] 32 root -INFO -Model Trainng started
+[2025-05-30 00:22:11,311] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-30 00:22:11,312] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-30 00:22:11,312] 46 root -INFO -Entered the save_object method of MainUtils class
+[2025-05-30 00:22:11,313] 50 root -INFO -Exited the save_object method of MainUtils class
+[2025-05-30 00:22:11,313] 130 root -INFO -Best Model: SVC
+[2025-05-30 00:22:11,313] 137 root -INFO -Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='healthapp/Heart\\Artifacts\\05_30_2025_00_21_02\\model_trainer\\trained_model\\heart_model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.8169014084507042, precision_score=0.7581699346405228, recall_score=0.8854961832061069), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.8205128205128205, precision_score=0.7272727272727273, recall_score=0.9411764705882353))
