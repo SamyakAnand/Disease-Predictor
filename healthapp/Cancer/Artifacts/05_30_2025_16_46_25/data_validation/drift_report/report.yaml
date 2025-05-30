@@ -1,0 +1,18 @@
+area_mean:
+  drift_status: false
+  p_value: 0.20622733906366075
+concave points_mean:
+  drift_status: false
+  p_value: 0.49249270713659654
+concavity_mean:
+  drift_status: false
+  p_value: 0.8072218380049742
+diagnosis:
+  drift_status: false
+  p_value: 0.5295095998369689
+perimeter_mean:
+  drift_status: false
+  p_value: 0.24638611767071772
+radius_mean:
+  drift_status: false
+  p_value: 0.18854164674939702
