@@ -1,0 +1,8 @@
+[2025-05-30 23:11:49,060] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-05-30 23:11:49,132] 107 dagshub -INFO -Accessing as SamyakAnand
+[2025-05-30 23:11:49,946] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/repos/SamyakAnand/Health-App "HTTP/1.1 200 OK"
+[2025-05-30 23:11:50,720] 1025 httpx -INFO -HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2025-05-30 23:11:50,722] 107 dagshub -INFO -Initialized MLflow to track repo "SamyakAnand/Health-App"
+[2025-05-30 23:11:50,723] 107 dagshub -INFO -Repository SamyakAnand/Health-App initialized!
+[2025-05-30 23:11:50,723] 14 root -INFO -Initiate the data ingestion
+[2025-05-30 23:11:58,495] 43 root -INFO -MongoDB Columns: ['_id', 'Age', 'Gender', 'Total_Bilirubin', 'Direct_Bilirubin', 'Alkaline_Phosphotase', 'Alamine_Aminotransferase', 'Aspartate_Aminotransferase', 'Total_Protiens', 'Albumin', 'Albumin_and_Globulin_Ratio', 'Dataset']

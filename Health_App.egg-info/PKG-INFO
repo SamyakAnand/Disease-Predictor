@@ -1,4 +1,4 @@
-Metadata-Version: 2.4
+Metadata-Version: 2.1
 Name: Health-App
 Version: 0.0.1
 Author: Samyak Anand
@@ -17,6 +17,3 @@ Requires-Dist: Flask
 Requires-Dist: flask-cors
 Requires-Dist: uvicorn
 Requires-Dist: python-multipart
-Dynamic: author
-Dynamic: author-email
-Dynamic: requires-dist

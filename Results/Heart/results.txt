@@ -1,0 +1,1 @@
+{"id": "6c71ef17-3798-4111-a065-a000547a5212", "ts": "2025-05-31T11:14:01.450233", "cp": "2", "trestbps": "122", "chol": "222", "fbs": "1", "restecg": "1", "thalach": "111", "exang": "0", "Prediction": "\ud83d\udd34 High Risk \u2013 please consult a doctor."}

@@ -1,0 +1,221 @@
+{% set is_high = 'High' in (current_result.Prediction if current_result else '') %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Diabetes Prediction Results</title>
+
+  <!-- BOOTSTRAP 5 + ICONS + GOOGLE FONT -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+  <style>
+    :root{
+      --pink:#D81B60;
+      --pink-dark:#8b0e46;
+      --green:#4caf50;
+      --red:#f44336;
+    }
+    body{font-family:'Poppins',sans-serif;background:#FFF8E1;overflow-x:hidden;}
+
+    /* ---------- HERO ---------- */
+    .hero{background:linear-gradient(135deg,var(--pink) 0%,var(--pink-dark) 100%);
+          color:#fff;padding:70px 0 90px;border-bottom-left-radius:60px;
+          border-bottom-right-radius:60px;box-shadow:0 8px 30px rgba(0,0,0,.25);}
+    .hero h1{font-weight:600;font-size:2.5rem}
+
+    /* ---------- SHARED PINK BUTTON (predictor + back) ---------- */
+    .btn-primary, .btn-back{
+      background:var(--pink);
+      border:none;
+      color:#fff;
+      padding:.75rem 1.6rem;
+      border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+    }
+    .btn-primary:hover, .btn-back:hover{
+      background:var(--pink-dark);
+      color:#fff;
+    }
+
+    /* ---------- GLASS CARD ---------- */
+    .glass-card{backdrop-filter:blur(13px) saturate(180%);
+                background:rgba(255,255,255,.56);
+                border:1px solid rgba(255,255,255,.16);
+                border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.12);}
+    .metric{font-size:1.05rem}
+    .metric strong{min-width:140px;display:inline-block;color:#555;}
+
+    /* ---------- FINAL RESULT BANNER ---------- */
+    .result-banner{
+      border-radius:14px;
+      font-size:1.1rem;
+      font-weight:600;
+      padding:1.1rem 1.4rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:.6rem;
+      animation:pop .5s cubic-bezier(.18,1.25,.4,1.05);
+    }
+    .result-banner.success{background:#E8F5E9;color:var(--green);}
+    .result-banner.danger {background:#FFEBEE;color:var(--red);}
+    @keyframes pop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+
+    /* ---------- BADGE ---------- */
+    .risk-badge{font-size:.92rem;padding:.45rem 1.1rem;border-radius:50px;
+                color:#fff;display:inline-flex;align-items:center;gap:.35rem;
+                position:relative;overflow:hidden;}
+    .risk-badge i{font-size:1.1rem;}
+    .risk-badge.green{background:var(--green);}
+    .risk-badge.red  {background:var(--red);}
+    .risk-badge::before{
+      content:'';position:absolute;inset:0;border-radius:inherit;
+      box-shadow:0 0 0 0 rgba(255,255,255,.45);animation:pulse 2.5s infinite;}
+    @keyframes pulse{to{box-shadow:0 0 0 16px rgba(255,255,255,0);}}
+
+    /* ---------- DATATABLE + ANIMS ---------- */
+    table.dataTable thead{background:var(--pink);color:#fff}
+    .fade-up{opacity:0;transform:translateY(40px);animation:fadeUp .8s .3s forwards}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+
+  <!-- HERO HEADER -->
+  <section class="hero text-center">
+    <div class="container">
+      <h1 class="mb-2"><i class="fa-solid fa-heartbeat me-2"></i>Diabetes Prediction Results</h1>
+      <p class="lead mb-0">See your latest screening below and compare it with past check-ups 💖</p>
+    </div>
+  </section>
+
+  <main class="container position-relative" style="margin-top:-70px;">
+
+    {# ---------- FINAL RESULT BANNER ---------- #}
+    {% if current_result %}
+      <div class="result-banner {{ 'danger' if is_high else 'success' }} fade-up">
+        <i class="fa-solid fa-circle{{'-exclamation' if is_high else '-check'}} fa-lg"></i>
+        {{ current_result.Prediction }}
+      </div>
+    {% endif %}
+
+    {# ---------- CURRENT SCREENING CARD ---------- #}
+    {% if current_result %}
+    <div class="glass-card p-4 p-lg-5 fade-up">
+      <h3 class="fw-semibold text-center mb-4">Detailed Breakdown</h3>
+
+      <div class="row g-0 mb-3">
+        <div class="col-12 col-md-6">
+          <p class="metric"><strong>Pregnancies:</strong>{{ current_result.Pregnancies }}</p>
+          <p class="metric"><strong>Glucose:</strong>{{ current_result.Glucose }}</p>
+          <p class="metric"><strong>Blood&nbsp;Pressure:</strong>{{ current_result.BloodPressure }}</p>
+          <p class="metric"><strong>Skin&nbsp;Thickness:</strong>{{ current_result.SkinThickness }}</p>
+        </div>
+        <div class="col-12 col-md-6">
+          <p class="metric"><strong>Insulin:</strong>{{ current_result.Insulin }}</p>
+          <p class="metric"><strong>BMI:</strong>{{ current_result.BMI }}</p>
+          <p class="metric"><strong>Diabetes&nbsp;Risk:</strong>{{ current_result.DiabetesPedigreeFunction }}</p>
+          <p class="metric"><strong>Age:</strong>{{ current_result.Age }}</p>
+        </div>
+      </div>
+
+      <div class="text-center mb-2">
+        <span class="risk-badge {{ 'red' if is_high else 'green' }}">
+          <i class="fa-solid fa-circle{{'-exclamation' if is_high else '-check'}}"></i>
+          {{ current_result.Prediction }}
+        </span>
+      </div>
+
+      {% if current_result.ts %}
+      <p class="text-center text-secondary mb-0" style="font-size:.9rem;">
+        <i class="fa-regular fa-clock me-1"></i>
+        {{ current_result.ts | replace('T',' ') | replace('Z','') }}
+      </p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {# ---------- TOGGLE LINK ---------- #}
+    {% if results %}
+    <div class="text-center mt-4 fade-up">
+      {% if view_mode == 'current' %}
+        <a href="{{ url_for('screenings.results', id=request.args.get('id'), view='all') }}"
+           class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-table me-1"></i>Show all screenings</a>
+      {% else %}
+        <a href="{{ url_for('screenings.results', id=request.args.get('id'), view='current') }}"
+           class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye me-1"></i>Show only current</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {# ---------- HISTORY TABLE ---------- #}
+    {% if results %}
+    <div class="card mt-4 fade-up">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table id="history" class="table table-striped mb-0 w-100">
+            <thead>
+              <tr>
+                <th>Date</th><th>Preg</th><th>Glucose</th><th>BP</th><th>Skin</th>
+                <th>Insulin</th><th>BMI</th><th>Risk</th><th>Age</th><th>Prediction</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for r in results|reverse %}
+              <tr class="{% if loop.first %}table-warning{% endif %}">
+                <td>{{ r.ts | default('–') | replace('T',' ') | replace('Z','') }}</td>
+                <td>{{ r.Pregnancies }}</td><td>{{ r.Glucose }}</td><td>{{ r.BloodPressure }}</td>
+                <td>{{ r.SkinThickness }}</td><td>{{ r.Insulin }}</td><td>{{ r.BMI }}</td>
+                <td>{{ r.DiabetesPedigreeFunction }}</td><td>{{ r.Age }}</td>
+                <td>
+                  <span class="badge {{ 'bg-danger' if 'High' in r.Prediction else 'bg-success' }}">
+                    {{ r.Prediction }}
+                  </span>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% elif not current_result %}
+      <p class="text-center mt-3 fade-up">No screening results found 💖</p>
+    {% endif %}
+
+    {# ---------- BACK BUTTON ---------- #}
+    <div class="text-center mt-5 fade-up">
+      <a class="btn btn-main btn-lg" href="{{ url_for('disease_page', disease=disease) }}">
+  <i class="fa-solid fa-arrow-left me-2"></i>Back to Predictor
+</a>
+    </div>
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- DataTables for search/sort -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <link  href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+  <script>
+    $(function () {
+      $('#history').DataTable({
+        pageLength:5,
+        order:[[0,'desc']],
+        language:{search:"Search past results:"}
+      });
+      $('.fade-up').each(function(i,el){
+        setTimeout(()=>$(el).addClass('show'), 120*i);
+      });
+    });
+  </script>
+</body>
+</html>

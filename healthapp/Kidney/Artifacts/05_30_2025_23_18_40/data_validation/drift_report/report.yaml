@@ -1,0 +1,24 @@
+al:
+  drift_status: true
+  p_value: .nan
+bp:
+  drift_status: true
+  p_value: .nan
+classification:
+  drift_status: false
+  p_value: 0.9914023590806704
+pc:
+  drift_status: true
+  p_value: .nan
+pcc:
+  drift_status: true
+  p_value: .nan
+rbc:
+  drift_status: true
+  p_value: .nan
+sg:
+  drift_status: true
+  p_value: .nan
+su:
+  drift_status: true
+  p_value: .nan

@@ -1,0 +1,24 @@
+chol:
+  drift_status: false
+  p_value: 0.4969061504449416
+cp:
+  drift_status: false
+  p_value: 0.9725608284562665
+exang:
+  drift_status: false
+  p_value: 1.0
+fbs:
+  drift_status: false
+  p_value: 0.9999564870349288
+restecg:
+  drift_status: false
+  p_value: 0.9545010167416177
+target:
+  drift_status: false
+  p_value: 0.9998079013882636
+thalach:
+  drift_status: false
+  p_value: 0.9901128020379261
+trestbps:
+  drift_status: false
+  p_value: 0.4056714313162875

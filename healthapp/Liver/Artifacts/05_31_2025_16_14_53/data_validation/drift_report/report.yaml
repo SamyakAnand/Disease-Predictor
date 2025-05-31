@@ -1,0 +1,24 @@
+Alamine_Aminotransferase:
+  drift_status: false
+  p_value: 0.25047228402983085
+Albumin:
+  drift_status: false
+  p_value: 0.8883133423661084
+Albumin_and_Globulin_Ratio:
+  drift_status: false
+  p_value: 0.5738722677658088
+Alkaline_Phosphotase:
+  drift_status: false
+  p_value: 0.9999615530441124
+Dataset:
+  drift_status: false
+  p_value: 0.9987605557288477
+Direct_Bilirubin:
+  drift_status: false
+  p_value: 0.9054723460845291
+Total_Bilirubin:
+  drift_status: false
+  p_value: 0.789538560064717
+Total_Protiens:
+  drift_status: false
+  p_value: 0.494224850194214

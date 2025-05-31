@@ -1,0 +1,97 @@
+# kidney_schema.yaml
+columns:
+  - name: age
+    dtype: float
+  - name: bp
+    dtype: float
+  - name: sg
+    dtype: float
+  - name: al
+    dtype: float
+  - name: su
+    dtype: float
+  - name: rbc
+    dtype: string
+    allowed_values: ["abnormal", "normal"]
+    mapping:
+      abnormal: 1
+      normal: 0
+  - name: pc
+    dtype: string
+    allowed_values: ["abnormal", "normal"]
+    mapping:
+      abnormal: 1
+      normal: 0
+  - name: pcc
+    dtype: string
+    allowed_values: ["present", "notpresent"]
+    mapping:
+      present: 1
+      notpresent: 0
+  - name: ba
+    dtype: string
+    allowed_values: ["present", "notpresent"]
+    mapping:
+      present: 1
+      notpresent: 0
+  - name: bgr
+    dtype: float
+  - name: bu
+    dtype: float
+  - name: sc
+    dtype: float
+  - name: sod
+    dtype: float
+  - name: pot
+    dtype: float
+  - name: hemo
+    dtype: float
+  - name: pcv
+    dtype: float
+  - name: wc
+    dtype: float
+  - name: rc
+    dtype: float
+  - name: htn
+    dtype: string
+    allowed_values: ["yes", "no"]
+    mapping:
+      yes: 1
+      no: 0
+  - name: dm
+    dtype: string
+    allowed_values: ["yes", "no"]
+    mapping:
+      yes: 1
+      no: 0
+  - name: cad
+    dtype: string
+    allowed_values: ["yes", "no"]
+    mapping:
+      yes: 1
+      no: 0
+  - name: appet
+    dtype: string
+    allowed_values: ["good", "poor", "no"]
+    mapping:
+      good: 1
+      poor: 0
+      no: 0
+  - name: pe
+    dtype: string
+    allowed_values: ["good", "bad"]
+    mapping:
+      good: 0
+      bad: 1
+  - name: ane
+    dtype: string
+    allowed_values: ["yes", "no"]
+    mapping:
+      yes: 1
+      no: 0
+  - name: class
+    dtype: string
+    allowed_values: ["ckd", "notckd"]
+    mapping:
+      ckd: 1.0
+      notckd: 0.0

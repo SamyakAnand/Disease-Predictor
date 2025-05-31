@@ -1,0 +1,219 @@
+{# templates/kidney_results.html #}
+{% set hi = current_result and current_result.Prediction.startswith("🔴") %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Kidney-Disease Screening Results</title>
+
+  <!-- Bootstrap 5 + Icons + Google Font -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --red: #f44336;         /* Red for high risk */
+      --red-dark: #d32f2f;      /* Dark red for hover/accent */
+      --green: #4caf50;         /* Green for low risk */
+      --orange: #FF9800;        /* Orange can be used elsewhere if needed */
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #FFF3E0;  /* Light orange background */
+      overflow-x: hidden;
+    }
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange) 100%);
+      /* Using orange for hero background for contrast */
+      color: #fff;
+      padding: 70px 0 90px;
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+    }
+    /* GLASS CARD */
+    .glass-card {
+      backdrop-filter: blur(14px) saturate(180%);
+      background: rgba(255,255,255,0.56);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      margin-bottom: 2rem;
+    }
+    .metric strong {
+      min-width: 150px;
+      display: inline-block;
+      color: #555;
+    }
+    /* RISK BADGE */
+    .risk-badge {
+      border-radius: 40px;
+      padding: 0.45rem 1.2rem;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 1.1rem;
+    }
+    .risk-badge.red {
+      background: var(--red);
+    }
+    .risk-badge.green {
+      background: var(--green);
+    }
+    /* MAIN BUTTON */
+    .btn-main {
+      background: var(--orange);
+      border: none;
+      color: #fff;
+    }
+    .btn-main:hover {
+      background: var(--red-dark);
+      color: #fff;
+    }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+    /* FOOTER */
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #555;
+      padding: 1rem 0;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero text-center">
+  <div class="container">
+    <h1><i class="fa-solid fa-tint me-2"></i>Kidney-Disease Screening Results</h1>
+    <p class="lead mb-0">Early detection saves lives!</p>
+  </div>
+</section>
+
+<main class="container position-relative" style="margin-top:-70px;">
+  {% if current_result %}
+  <!-- OVERALL RESULT BADGE -->
+  <div class="text-center mb-3 fade-up">
+    <!-- If high risk, use "red", otherwise "green" -->
+    <span class="risk-badge {% if hi %}red{% else %}green{% endif %}">
+      <i class="fa-solid fa-circle-{% if hi %}exclamation{% else %}check{% endif %}"></i>
+      {{ current_result.Prediction }}
+    </span>
+  </div>
+
+  <!-- DETAIL CARD -->
+  <div class="glass-card p-4 p-lg-5 fade-up">
+    <h3 class="fw-semibold text-center mb-4">Detailed Breakdown</h3>
+    <div class="row g-0 mb-3">
+      <div class="col-md-6">
+        <p class="metric"><strong>Blood Pressure:</strong> {{ current_result.bp }}</p>
+        <p class="metric"><strong>Specific Gravity:</strong> {{ current_result.sg }}</p>
+        <p class="metric"><strong>Albumin:</strong> {{ current_result.al }}</p>
+        <p class="metric"><strong>Sugar:</strong> {{ current_result.su }}</p>
+      </div>
+      <div class="col-md-6">
+        <p class="metric"><strong>RBC:</strong> {{ current_result.rbc }}</p>
+        <p class="metric"><strong>Pus Cell:</strong> {{ current_result.pc }}</p>
+        <p class="metric"><strong>Pus Cell Clumps:</strong> {{ current_result.pcc }}</p>
+      </div>
+    </div>
+    <p class="text-center text-secondary" style="font-size:0.85rem;">
+      <i class="fa-regular fa-clock me-1"></i>
+      {{ current_result.ts | replace('T',' ') | replace('Z','') }}
+    </p>
+  </div>
+  {% endif %}
+
+  {% if results %}
+  <!-- HISTORY TABLE -->
+  <div class="card mt-4 fade-up">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table id="history" class="table table-striped mb-0 w-100">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Blood Pressure</th>
+              <th>Specific Gravity</th>
+              <th>Albumin</th>
+              <th>Sugar</th>
+              <th>RBC</th>
+              <th>Pus Cell</th>
+              <th>Pus Cell Clumps</th>
+              <th>Prediction</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in results | reverse %}
+            <tr>
+              <td>{{ r.ts | replace('T',' ') | replace('Z','') }}</td>
+              <td>{{ r.bp }}</td>
+              <td>{{ r.sg }}</td>
+              <td>{{ r.al }}</td>
+              <td>{{ r.su }}</td>
+              <td>{{ r.rbc }}</td>
+              <td>{{ r.pc }}</td>
+              <td>{{ r.pcc }}</td>
+              <td>
+                <span class="badge {% if r.Prediction.startswith('🔴') %}bg-danger{% else %}bg-success{% endif %}">
+                  {{ r.Prediction }}
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- BACK TO FORM -->
+  <div class="text-center mt-5 fade-up">
+  <a class="btn btn-main btn-lg" href="{{ url_for('disease_page', disease=disease) }}">
+    <i class="fa-solid fa-arrow-left me-2"></i>Back to Predictor
+  </a>
+</div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  &copy; Samyak Anand
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+  $(function(){
+    $('#history').DataTable({
+      pageLength: 5,
+      order: [[0, 'desc']],
+      language: { search: "Search:" }
+    });
+    $('.fade-up').addClass('show');
+  });
+</script>
+</body>
+</html>

@@ -12,4 +12,4 @@ Flask
 flask-cors
 uvicorn
 python-multipart
-#-e .
+-e .
