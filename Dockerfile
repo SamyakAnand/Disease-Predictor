@@ -1,20 +1,18 @@
-# Use an official Python runtime as a parent image (slimmer Debian-based image)
+# Use an official lightweight Python image
 FROM python:3.12-slim
 
-# Set the working directory in the container to /app
+# Set the working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# Install any needed packages specified in requirements.txt
-# Upgrading pip and installing awscli
-RUN pip install --upgrade pip && \
-    pip install awscli && \
-    pip install -r requirements.txt
+# Copy the project files
+COPY . .
 
-# Make port 5000 available to the world outside this container (if needed, change the port)
+# Set environment variable for Render
+ENV PORT=8080
 
-
-# Run app.py when the container launches
-CMD ["python3", "app.py"]
+# Command to run Flask app with Gunicorn
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]

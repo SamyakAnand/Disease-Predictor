@@ -11,7 +11,7 @@ dagshub
 flask
 flask-cors
 waitress
-gunicorn
+
 python-multipart
 
 #-e .

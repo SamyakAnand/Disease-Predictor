@@ -5,4 +5,5 @@ services:
     repo: https://github.com/SamyakAnand/Disease-Predictor
     branch: main
     plan: free
+    startCommand: "gunicorn app:app --bind 0.0.0.0:8080 --workers 4"
     autoDeploy: true
