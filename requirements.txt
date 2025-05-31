@@ -10,7 +10,9 @@ pyaml
 dagshub
 flask
 flask-cors
+waitress
+fcntl
 gunicorn
 python-multipart
 
--e .
+#-e .

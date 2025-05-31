@@ -17,10 +17,10 @@ def get_requirements()->List[str]:
         print('requirement.txt file not found')
     return requirements_lst
 setup(
-    name="Health App",
+    name="Disease Predictor",
     version='0.0.1',
     author='Samyak Anand',
     author_email='samyak.g.anand@gmail.com',
     packages=find_packages(),
-    install_requires=get_requirements()
+    install_requires=get_requirements('requirements.txt')
 )

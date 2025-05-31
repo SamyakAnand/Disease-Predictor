@@ -1,11 +1,8 @@
 services:
   - name: disease-predictor
     type: web
-    runtime: python
+    env: docker
+    repo: https://github.com/SamyakAnand/Disease-Predictor
+    branch: main
     plan: free
-    envVars:
-      - key: PORT
-        value: 8080
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn app:app"
     autoDeploy: true
