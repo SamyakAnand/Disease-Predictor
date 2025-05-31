@@ -8,8 +8,9 @@ certifi
 mlflow
 pyaml
 dagshub
-Flask
+flask
 flask-cors
-uvicorn
+gunicorn
 python-multipart
+
 -e .
