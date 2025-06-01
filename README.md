@@ -96,13 +96,13 @@ healthapp/
 ## 📷 Screenshots
 
 *Homepage:*
-![Homepage](path_to_homepage_screenshot)
+![Homepage](https://github.com/SamyakAnand/Disease-Predictor/blob/main/images/Home.png)
 
 *Form Example:*
-![Form](path_to_form_screenshot)
+![Form](https://github.com/SamyakAnand/Disease-Predictor/blob/main/images/Predictor.png)
 
 *Prediction Result:*
-![Result](path_to_result_screenshot)
+![Result](https://github.com/SamyakAnand/Disease-Predictor/blob/main/images/Result.png)
 
 ---
 
