@@ -1,9 +1,9 @@
 setup.py
-Health_App.egg-info/PKG-INFO
-Health_App.egg-info/SOURCES.txt
-Health_App.egg-info/dependency_links.txt
-Health_App.egg-info/requires.txt
-Health_App.egg-info/top_level.txt
+Disease_Predictor.egg-info/PKG-INFO
+Disease_Predictor.egg-info/SOURCES.txt
+Disease_Predictor.egg-info/dependency_links.txt
+Disease_Predictor.egg-info/requires.txt
+Disease_Predictor.egg-info/top_level.txt
 healthapp/__init__.py
 healthapp/main.py
 healthapp/Cancer/__init__.py

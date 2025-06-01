@@ -1,5 +1,5 @@
 Metadata-Version: 2.4
-Name: Health-App
+Name: Disease-Predictor
 Version: 0.0.1
 Author: Samyak Anand
 Author-email: samyak.g.anand@gmail.com
@@ -16,7 +16,6 @@ Requires-Dist: dagshub
 Requires-Dist: flask
 Requires-Dist: flask-cors
 Requires-Dist: waitress
-Requires-Dist: gunicorn
 Requires-Dist: python-multipart
 Dynamic: author
 Dynamic: author-email
