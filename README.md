@@ -1,131 +1,153 @@
+# 🧠 Disease Predictor: Multi-Disease ML System (Modular & Scalable)
 
-````markdown
-# 🩺 Disease Predictor Web App
+A robust, modular, and production-ready **machine learning system** that predicts the risk of **five major diseases**:
 
-A **multi-disease prediction** web application that helps users assess the risk of **Heart Disease, Breast Cancer, Kidney Disease, Liver Disease**, and **Diabetes (for women)** using trained machine learning models. Built with Flask and deployed on Render.
+- ❤️ Heart Disease
+- 🎗️ Breast Cancer
+- 🧪 Kidney Disease
+- 🧬 Liver Disease
+- 🍭 Diabetes (for women)
 
-🌐 **Live Demo:** [Disease Predictor](https://disease-predictor-dvty.onrender.com/)
+Each disease is independently supported with a complete ML lifecycle, including **data ingestion, validation, transformation, training**, and **drift detection**. Built using Flask and deployed on Render with full experiment tracking and model versioning.
 
----
-
-## 🔍 Features
-
-- 🔬 Predicts 5 major diseases: Heart, Breast Cancer, Kidney, Liver, Diabetes (for women).
-- 📈 Risk output: `Low Risk` / `High Risk` based on user input.
-- 💡 Separate prediction pages/tabs for each disease.
-- 🧠 Trained and tracked 5 ML models using **MLflow**.
-- 📦 Experiment tracking and model versioning via **DagsHub**.
-- 💻 User interface built with **Flask**, **HTML/CSS**, and **Bootstrap**.
-- 🚀 Deployed using **Render**.
-- 🌐 Code managed with **GitHub**.
+🌐 **Live App:** [Try it on Render](https://disease-predictor-dvty.onrender.com/)
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Key Highlights
 
-- **Frontend:** HTML, CSS, Bootstrap
-- **Backend:** Flask (Python)
-- **ML Libraries:** scikit-learn, pandas, NumPy
-- **Model Tracking & Versioning:** MLflow, DagsHub
-- **Version Control:** Git, GitHub
-- **Deployment:** Render
-
----
-
-## 🧪 Supported Diseases
-
-| Disease         | Model Source    | Risk Output  |
-|-----------------|------------------|--------------|
-| Heart Disease   | Custom ML model  | Low / High   |
-| Breast Cancer   | Custom ML model  | Low / High   |
-| Kidney Disease  | Custom ML model  | Low / High   |
-| Liver Disease   | Custom ML model  | Low / High   |
-| Diabetes (Women)| Custom ML model  | Low / High   |
+- 🔁 **Modular architecture** for each disease
+- 🧪 Custom ML pipelines: ingestion → validation → transformation → training
+- 🧬 Schema validation and data drift detection
+- 📈 **MLflow** for experiment tracking
+- 📦 Version control for model/data via **DagsHub**
+- 🧾 Clean and responsive UI (HTML, CSS, Bootstrap)
+- 🌍 RESTful backend with Flask, deployed via **Waitress + Render**
+- 📊 Logging & error tracking with custom exception handling
 
 ---
 
-## 🔧 How It Works
+## 🏗️ Project Architecture
 
-1. User selects a disease tab from the disease section.
-2. Fills in the medical form (e.g., age, BP, glucose).
-3. Hits "Predict" to get the risk level (`Low Risk` or `High Risk`).
-4. The model runs prediction in real-time using pre-trained models tracked via MLflow.
+```
+healthapp/
+├── Cancer/         # Full pipeline and logic for breast cancer prediction
+│   ├── components/ # ingestion, validation, transformation, training
+│   ├── utils/      # metric calculators, estimators
+│   └── app.py      # Flask route
+├── Diabetes/
+├── Heart/
+├── Kidney/
+├── Liver/
+├── app_logging/    # Logger utility
+├── exception/      # Custom exception classes
+├── main.py         # Main training/inference entrypoint
+├── templates/      # HTML templates
+├── static/         # CSS, images
+└── ...
+```
+
+Each disease directory includes:
+- `data_ingestion.py`
+- `data_validation.py` (+ drift report)
+- `data_transformation.py`
+- `model_trainer.py`
+- `schema.yaml`, constants, config entities
 
 ---
 
-## 📦 Integration Details
+## 🔧 Tech Stack
 
-- **MLflow:** Used to track experiments, parameters, metrics, and model versions.
-- **DagsHub:** Hosted MLflow server and managed data/model versions.
-- **GitHub:** Version control for full application code.
+| Category             | Technologies Used                                      |
+|----------------------|--------------------------------------------------------|
+| **Frontend**         | HTML, CSS, Bootstrap                                   |
+| **Backend**          | Flask, Flask-CORS, Waitress                            |
+| **ML Libraries**     | scikit-learn, pandas, NumPy, matplotlib                |
+| **Pipeline Modules** | Modular Python (custom components per disease)         |
+| **Tracking**         | MLflow, DagsHub, PyYAML                                |
+| **Database**         | MongoDB (via PyMongo), certifi                         |
+| **ETL Pipeline**     | Python with schema validation + drift detection        |
+| **Deployment**       | Render (WSGI via Waitress)                             |
+| **Utilities**        | python-dotenv, logging, exception handling             |
 
 ---
 
-## 🏁 Getting Started Locally
+## 🚀 Quick Start (Local Development)
 
 ```bash
 git clone https://github.com/SamyakAnand/Disease-predictor.git
 cd disease-predictor
 pip install -r requirements.txt
-python app.py
-````
+python healthapp/main.py
+```
 
-Then go to `http://127.0.0.1:5000/` in your browser.
+Access via browser at: `http://127.0.0.1:5000/`
 
 ---
 
-## 📁 Project Structure
+## 🧠 Supported Diseases & Models
 
-```
-healthapp/
-│
-├── Heart/                 # Heart disease logic
-├── Cancer/                # Breast cancer logic
-├── Kidney/                # Kidney disease logic
-├── Liver/                 # Liver disease logic
-├── Diabetes/              # Diabetes prediction logic
-├── templates/             # HTML UI
-├── static/                # Images
-├── app.py                 # Main Flask app
-├── requirements.txt
-└── README.md
-```
+| Disease          | Pipeline             | Output     |
+|------------------|----------------------|------------|
+| Heart Disease    | Custom ML pipeline   | Low/High   |
+| Breast Cancer    | Custom ML pipeline   | Low/High   |
+| Kidney Disease   | Custom ML pipeline   | Low/High   |
+| Liver Disease    | Custom ML pipeline   | Low/High   |
+| Diabetes (Women) | Custom ML pipeline   | Low/High   |
 
 ---
 
-## 📷 Screenshots
+## 🔗 ML System Integration
 
-*Homepage:*
+- **ETL pipeline**: Extract from MongoDB → Validate (schema + drift) → Transform → Train
+- **MLflow & DagsHub**: Model tracking, artifact versioning
+- **Modular Design**: Each disease is a fully independent, pluggable module
+
+---
+
+## 🗃️ Screenshots
+
+**🔹 Homepage**
 ![Homepage](https://github.com/SamyakAnand/Disease-Predictor/blob/main/images/Home.png)
 
-*Form Example:*
+**🔹 Prediction Form**
 ![Form](https://github.com/SamyakAnand/Disease-Predictor/blob/main/images/Predictor.png)
 
-*Prediction Result:*
+**🔹 Prediction Output**
 ![Result](https://github.com/SamyakAnand/Disease-Predictor/blob/main/images/Result.png)
 
 ---
 
-## 🚀 Future Improvements
+## 📈 Future Enhancements
 
-* Add user authentication and prediction history.
-* Allow CSV file input and batch predictions.
-* Visualize confidence scores and SHAP values.
-* Expand to include male-specific models and symptoms.
-
----
-
-## 🙋‍♂️ Author
-
-**Samyak Anand**
-Aspiring Data Scientist | Hyderabad, India
-[LinkedIn](https://www.linkedin.com/in/SamyakAnand/) | [GitHub](https://github.com/SamyakAnand) |
+- 👥 User authentication & prediction history
+- 📁 CSV upload for batch prediction
+- 🔍 Model explainability (SHAP, feature importance)
+- 🧔 Models for male-specific conditions
+- 📊 Monitoring dashboards
 
 ---
 
-## 📄 License
+## 👨‍💻 Author
 
-Licensed under the **MIT License**. Free to use for personal, educational, and research purposes.
+**Samyak Anand**  
+Aspiring Data Scientist | Hyderabad, India  
+[🔗 LinkedIn](https://www.linkedin.com/in/SamyakAnand/)  
+[💻 GitHub](https://github.com/SamyakAnand)
+
+---
+
+## 📝 License
+
+Distributed under the **MIT License** – free for personal, academic, and commercial use with attribution.
+
 ```
 
+---
 
+Would you like this README:
+- Exported as a **PDF**?
+- Enhanced with **badges** (e.g., MIT License, Flask, Render deployed)?
+- Auto-pushed to your GitHub repository?
+
+Just let me know!
