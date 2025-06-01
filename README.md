@@ -141,13 +141,4 @@ Aspiring Data Scientist | Hyderabad, India
 
 Distributed under the **MIT License** – free for personal, academic, and commercial use with attribution.
 
-```
 
----
-
-Would you like this README:
-- Exported as a **PDF**?
-- Enhanced with **badges** (e.g., MIT License, Flask, Render deployed)?
-- Auto-pushed to your GitHub repository?
-
-Just let me know!
