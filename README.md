@@ -10,7 +10,7 @@ A robust, modular, and production-ready **machine learning system** that predict
 
 Each disease is independently supported with a complete ML lifecycle, including **data ingestion, validation, transformation, training**, and **drift detection**. Built using Flask and deployed on Render with full experiment tracking and model versioning.
 
-🌐 **Live App:** [Try it on Render](https://disease-predictor-dvty.onrender.com/)
+🌐 **Live App:** [Try it on Render](https://disease-predictor-j8m7.onrender.com/)
 
 ---
 
