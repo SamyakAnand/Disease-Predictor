@@ -1,1 +1,2 @@
 {"id": "6c71ef17-3798-4111-a065-a000547a5212", "ts": "2025-05-31T11:14:01.450233", "cp": "2", "trestbps": "122", "chol": "222", "fbs": "1", "restecg": "1", "thalach": "111", "exang": "0", "Prediction": "\ud83d\udd34 High Risk \u2013 please consult a doctor."}
+{"id": "5e5f83fe-8fba-465c-b1ed-6a61eaf88719", "ts": "2025-07-21T12:45:38.915146+00:00", "cp": "2", "trestbps": "144", "chol": "233", "fbs": "1", "restecg": "1", "thalach": "120", "exang": "0", "Prediction": "\ud83d\udd34 High Risk \u2013 please consult a doctor."}

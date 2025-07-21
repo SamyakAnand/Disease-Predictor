@@ -1,3 +1,4 @@
+README.md
 setup.py
 Disease_Predictor.egg-info/PKG-INFO
 Disease_Predictor.egg-info/SOURCES.txt
