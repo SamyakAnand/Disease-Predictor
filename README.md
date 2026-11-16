@@ -26,7 +26,7 @@ The repository contains disease-specific data ingestion, validation, transformat
 - 📈 **MLflow** for experiment tracking
 - 📦 Version control for model/data via **DagsHub**
 - 🧾 Clean and responsive UI (HTML, CSS, Bootstrap)
-- 🌍 RESTful backend with Flask, deployed via **Waitress + Render**
+- 🌍 Server-rendered Flask web app, served by Gunicorn on Render and Waitress locally
 - 📊 Logging & error tracking with custom exception handling
 
 ---
@@ -45,7 +45,7 @@ healthapp/
 ├── Liver/
 ├── app_logging/    # Logger utility
 ├── exception/      # Custom exception classes
-├── main.py         # Main training/inference entrypoint
+├── main.py         # Training pipeline orchestrator (not the web server)
 ├── templates/      # HTML templates
 ├── static/         # CSS, images
 └── ...
@@ -71,7 +71,7 @@ Each disease directory includes:
 | **Tracking**         | MLflow, DagsHub, PyYAML                                |
 | **Database**         | MongoDB (via PyMongo), certifi                         |
 | **ETL Pipeline**     | Python with schema validation + drift detection        |
-| **Deployment**       | Render (WSGI via Waitress)                             |
+| **Deployment**       | Render (Gunicorn WSGI server)                          |
 | **Utilities**        | python-dotenv, logging, exception handling             |
 
 ---
@@ -80,7 +80,7 @@ Each disease directory includes:
 
 ```bash
 git clone https://github.com/SamyakAnand/Disease-predictor.git
-cd disease-predictor
+cd Disease-Predictor
 pip install -r requirements.txt
 python app.py
 ```
