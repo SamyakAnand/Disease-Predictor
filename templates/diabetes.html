@@ -157,8 +157,8 @@
       </form>
 
       {% if prediction_text %}
-      <div class="result-banner text-center mt-4">
-        {{ prediction_text|safe }}
+      <div class="result-banner text-center mt-4" role="alert" aria-live="polite">
+        {{ prediction_text }}
       </div>
       {% endif %}
 
