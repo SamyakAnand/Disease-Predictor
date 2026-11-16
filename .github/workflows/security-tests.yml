@@ -42,4 +42,4 @@ jobs:
         run: python -m compileall -q app.py
 
       - name: Run request and privacy tests
-        run: python -m pytest -q
+        run: python -m pytest -q tests
