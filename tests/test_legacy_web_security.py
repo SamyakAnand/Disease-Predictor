@@ -123,7 +123,7 @@ def test_model_failure_is_generic_and_does_not_leak_exception_text(legacy_app):
 
     body = response.get_data(as_text=True)
     assert response.status_code == 503
-    assert "temporarily unavailable" in body
+    assert "could not be completed" in body
     assert "private backend detail" not in body
     assert failing_model.calls == 1
     assert preprocessor.calls == 1
