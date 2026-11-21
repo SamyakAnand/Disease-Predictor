@@ -4,7 +4,7 @@ import math
 import pickle
 from pathlib import Path
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
