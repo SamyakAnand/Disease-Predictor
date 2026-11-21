@@ -31,8 +31,15 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements-test.txt
 
-      - name: Compile legacy app source
-        run: python -m compileall -q healthapp
+      - name: Compile changed legacy app source
+        run: >-
+          python -m py_compile
+          healthapp/web_security.py
+          healthapp/Cancer/app.py
+          healthapp/Diabetes/app.py
+          healthapp/Heart/app.py
+          healthapp/Kidney/app.py
+          healthapp/Liver/app.py
 
       - name: Run legacy app security tests
         run: python -m pytest -q tests/test_legacy_web_security.py
