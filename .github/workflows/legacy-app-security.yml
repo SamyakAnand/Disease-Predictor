@@ -1,0 +1,45 @@
+name: Legacy disease app security
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  legacy-app-tests:
+    name: Legacy app validation and privacy tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-test.txt
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-test.txt
+
+      - name: Compile changed legacy app source
+        run: >-
+          python -m py_compile
+          healthapp/web_security.py
+          healthapp/Cancer/app.py
+          healthapp/Diabetes/app.py
+          healthapp/Heart/app.py
+          healthapp/Kidney/app.py
+          healthapp/Liver/app.py
+
+      - name: Run legacy app security tests
+        run: python -m pytest -q tests/test_legacy_web_security.py
