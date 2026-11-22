@@ -1,0 +1,42 @@
+name: Healthapp logging
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "healthapp/logging/**"
+      - "healthapp/app_logging/**"
+      - "tests/test_logging_setup.py"
+      - ".github/workflows/healthapp-logging.yml"
+  push:
+    branches: [main]
+    paths:
+      - "healthapp/logging/**"
+      - "healthapp/app_logging/**"
+      - "tests/test_logging_setup.py"
+      - ".github/workflows/healthapp-logging.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  logger-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile logging modules and tests
+        run: >-
+          python -m py_compile
+          healthapp/logging/logger.py
+          healthapp/app_logging/logger.py
+          tests/test_logging_setup.py
+
+      - name: Verify shared logging configuration
+        run: python -m unittest discover -s tests -p 'test_logging_setup.py' -v

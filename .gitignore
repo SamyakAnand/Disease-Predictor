@@ -2,3 +2,4 @@ healthenv
 .env
 __pycache__
 data
+logs/
